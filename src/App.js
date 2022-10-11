@@ -3,7 +3,7 @@ import './scss/app.scss'
 import Categories from './components/categories/Categories';
 import Header from './components/header/Header';
 import Pizza from './components/pizza/Pizza';
-import Sort from './scss/components/sort/Sort';
+import Sort from './components/sort/Sort';
 
 
 
