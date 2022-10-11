@@ -4,10 +4,12 @@ import Categories from './components/categories/Categories';
 import Header from './components/header/Header';
 import Pizza from './components/pizza/Pizza';
 import Sort from './components/sort/Sort';
+import pizzas from './pizzas.json'
 
 
 
 function App() {
+	console.log(pizzas)
 	return (
 <div className="wrapper">
      <Header/>
@@ -19,24 +21,9 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-			 <Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-		<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza> 
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
-	<Pizza title={'Чизбургер-пицца'} price={392} img={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"}>
-	</Pizza>
+				{pizzas.map((item,i) => {
+					return <Pizza key={item.id} {...item}></Pizza>
+				})}
 </div>
         </div>
       </div>
