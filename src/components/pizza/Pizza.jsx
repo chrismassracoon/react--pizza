@@ -14,10 +14,10 @@ const [activeSize, setActiveSize] = useState(0);
   <h4 className="pizza-block__title">{title}</h4>
   <div className="pizza-block__selector">
     <ul>
-		{types.map((type, i) =>  (<li onClick={() => setActiveType(type)} className={activeType === type ? 'active' : ''}>{typeNames[type]}</li>))}
+		{types.map((type, i) =>  (<li key={i} onClick={() => setActiveType(type)} className={activeType === type ? 'active' : ''}>{typeNames[type]}</li>))}
     </ul>
     <ul>
-		{sizes.map((item, i) => (<li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{item} см</li>))}
+		{sizes.map((item, i) => (<li key={i} onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{item} см</li>))}
     </ul>
   </div>
   <div className="pizza-block__bottom">
