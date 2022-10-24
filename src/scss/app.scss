@@ -24,15 +24,30 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+	 justify-content: center;
+    grid-template-columns: repeat(auto-fill, 280px);
+	 column-gap: 30px;
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+	 @media (max-width: 1260px) {
+		flex-direction: column;
+		row-gap: 20px;
+	 }
+	 .categories ul {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		row-gap: 10px;
+	 }
+	 .sort {
+		white-space: nowrap;
+	 }
   }
 }
 
@@ -54,6 +69,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .content__items {
+	display: block
   }
 
   .content__title {

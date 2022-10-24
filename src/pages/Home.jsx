@@ -17,10 +17,11 @@ export const Home = () => {
 		fetch('https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas')
 		.then(pizzas => pizzas.json())
 		.then(res => updatePizzas(res))
-		.catch(err => console.log(err))
+		.catch(err => console.log(err));
+		window.scrollTo(0, 0);
 	}, [])
   return (
-	<>
+	<div className='containter'>
 	<div className="content__top">
 	<Categories/>
 	<Sort/>
@@ -30,6 +31,6 @@ export const Home = () => {
 			{isLoading ? [...new Array(6)].map((_, index) => <PizzaSkeleton key={index}/>) : pizzas.map(item => {
 				return <Pizza key={item.id} {...item}></Pizza>})}
 		</div>
-</>
+</div>
   )
 }
