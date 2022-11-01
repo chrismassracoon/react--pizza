@@ -6,8 +6,8 @@ import Header from './components/header/Header';
 import { Routes, Route } from 'react-router-dom';
 import { Cart } from './pages/Cart';
 
-
 function App() {
+
 return (
 <div className="wrapper">
      <Header/>
@@ -23,5 +23,4 @@ return (
     </div>
 	);
 }
-
 export default App;
