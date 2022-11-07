@@ -1,6 +1,4 @@
-import { useContext } from 'react';
-import { useState } from 'react';
-import { Filter } from '../../App';
+
 
 const Categories = ({value, onClickCategory}) => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'].map(

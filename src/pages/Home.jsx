@@ -4,12 +4,15 @@ import Pizza from '../components/pizza/Pizza';
 import Sort from '../components/sort/Sort';
 import { useEffect, useState } from 'react';
 import PizzaSkeleton from '../components/pizza/PizzaSkeleton';
+import Pagination from '../components/Pagination';
 
-export const Home = () => {
+export const Home = ({ searchValue }) => {
   const [categorieId, setCategorieId] = useState(0);
   const [sort, setSort] = useState(0);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [pizzasCount, setPizzasCount] = useState(0);
+  const [curPage, setCurPage] = useState(1);
 
   const sortObj = {
     1: 'rating',
@@ -18,21 +21,32 @@ export const Home = () => {
   };
 
   const cat = categorieId > 0 ? `category=` + categorieId : '';
-  const sortBy = sort ? `&sortBy=` + sortObj[sort+1] + '&order=asc' : '';
+  const sortBy = sort ? `&sortBy=` + sortObj[sort + 1] + '&order=asc' : '';
 
   const updatePizzas = (res) => {
-    setPizzas(res);
-    setIsLoading(false);
+    console.log(res);
+    if (searchValue) {
+      setPizzas(res.filter((i) => i.title.toLowerCase().includes(searchValue.toLowerCase())));
+      setIsLoading(false);
+    } else {
+      setPizzas(res);
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     setIsLoading(true);
-    console.log(`https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas${cat}${sortBy}`);
-    fetch(`https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas?${cat}${sortBy}`)
+    fetch(
+      `https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas?page=${curPage}&limit=6&${cat}${sortBy}`,
+    )
       .then((pizzas) => pizzas.json())
-      .then((res) => updatePizzas(res))
+      .then((res) => {
+        setPizzasCount(res.count);
+        updatePizzas(res.items);
+      })
       .catch((err) => console.log(err));
     window.scrollTo(0, 0);
-  }, [categorieId, sort]);
+  }, [categorieId, sort, searchValue, curPage]);
+
 
   return (
     <div className="containter">
@@ -48,6 +62,7 @@ export const Home = () => {
               return <Pizza key={item.id} {...item}></Pizza>;
             })}
       </div>
+      <Pagination setCurPage={setCurPage} pizzasCount={pizzasCount} />
     </div>
   );
 };
