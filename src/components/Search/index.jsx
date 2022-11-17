@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Search.module.scss';
+import { SearchContext } from '../../App';
 
-export const Search = ({ searchValue, setSearchValue }) => {
+export const Search = () => {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+
   return (
     <div className={styles.root}>
       <svg className={styles.icon} id="Layer_1" version="1.1" viewBox="0 0 64 64">
@@ -25,17 +28,20 @@ export const Search = ({ searchValue, setSearchValue }) => {
         placeholder="Поиск пиццы..."
         type="text"
       />
-      {searchValue && <svg onClick={() => setSearchValue('')}
-        className={styles.iconclose}
-        xmlns="http://www.w3.org/2000/svg"
-        data-name="Layer 1"
-        height="200"
-        id="Layer_1"
-        viewBox="0 0 200 200"
-        width="200">
-        <title />
-        <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
-      </svg>}
+      {searchValue && (
+        <svg
+          onClick={() => setSearchValue('')}
+          className={styles.iconclose}
+          xmlns="http://www.w3.org/2000/svg"
+          data-name="Layer 1"
+          height="200"
+          id="Layer_1"
+          viewBox="0 0 200 200"
+          width="200">
+          <title />
+          <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z" />
+        </svg>
+      )}
     </div>
   );
 };
