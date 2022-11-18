@@ -8,10 +8,12 @@ import Pagination from '../components/Pagination';
 import { useContext } from 'react';
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeFilter, changeSort } from '../redux/slices/filterSlice';
+import { changeFilter, changeSort, setCurPage } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 export const Home = () => {
   const categorieId = useSelector((state) => state.filter.categorieId);
+  const pageCount = useSelector((state) => state.filter.pageCount);
   const sort = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
 
@@ -19,7 +21,6 @@ export const Home = () => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pizzasCount, setPizzasCount] = useState(0);
-  const [curPage, setCurPage] = useState(1);
 
   const sortObj = {
     1: 'rating',
@@ -29,6 +30,10 @@ export const Home = () => {
 
   const cat = categorieId > 0 ? `category=` + categorieId : '';
   const sortBy = sort ? `&sortBy=` + sortObj[sort + 1] + '&order=asc' : '';
+
+  const onChangePage = (number) => {
+    dispatch(setCurPage(number));
+  };
 
   const updatePizzas = (res) => {
     if (searchValue) {
@@ -41,17 +46,17 @@ export const Home = () => {
   };
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas?page=${curPage}&limit=6&${cat}${sortBy}`,
-    )
-      .then((pizzas) => pizzas.json())
-      .then((res) => {
-        setPizzasCount(res.count);
-        updatePizzas(res.items);
+    axios
+      .get(
+        `https://633f0d390dbc3309f3c3efb9.mockapi.io/pizzas?page=${pageCount}&limit=6&${cat}${sortBy}`,
+      )
+      .then((pizzas) => {
+        setPizzasCount(pizzas.data.count);
+        updatePizzas(pizzas.data.items);
       })
       .catch((err) => console.log(err));
     window.scrollTo(0, 0);
-  }, [categorieId, sort, searchValue, curPage]);
+  }, [categorieId, sort, searchValue, pageCount]);
 
   return (
     <div className="containter">
@@ -67,7 +72,7 @@ export const Home = () => {
               return <Pizza key={item.id} {...item}></Pizza>;
             })}
       </div>
-      <Pagination setCurPage={setCurPage} pizzasCount={pizzasCount} />
+      <Pagination setCurPage={onChangePage} pizzasCount={pizzasCount} />
     </div>
   );
 };
