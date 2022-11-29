@@ -19,7 +19,7 @@ function App() {
         <div className="content">
           <div className="container">
             <Routes>
-              <Route path="/" element={<Home/>} />
+              <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<NotFound></NotFound>} />
             </Routes>

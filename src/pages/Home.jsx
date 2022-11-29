@@ -35,6 +35,7 @@ export const Home = () => {
     dispatch(setCurPage(number));
   };
 
+
   const updatePizzas = (res) => {
     if (searchValue) {
       setPizzas(res.filter((i) => i.title.toLowerCase().includes(searchValue.toLowerCase())));
@@ -72,7 +73,7 @@ export const Home = () => {
               return <Pizza key={item.id} {...item}></Pizza>;
             })}
       </div>
-      <Pagination setCurPage={onChangePage} pizzasCount={pizzasCount} />
+      <Pagination forcesPage={pageCount} setCurPage={onChangePage} pizzasCount={pizzasCount} />
     </div>
   );
 };

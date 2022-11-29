@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react';
 
 const Sort = ({ value, onClickSort }) => {
+  const checkSort = (e) => {
+    if (e.target.closest('.sort')) {
+    } else {
+      setOpenSort(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('click', (e) => checkSort(e));
+    return () => document.removeEventListener('click', (e) => checkSort(e));
+  }, []);
   const [openSort, setOpenSort] = useState(false);
   const sortCategories = ['популярности', 'цене', 'алфавиту'];
   useEffect(() => {
