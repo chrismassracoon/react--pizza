@@ -35,7 +35,6 @@ export const Home = () => {
     dispatch(setCurPage(number));
   };
 
-
   const updatePizzas = (res) => {
     if (searchValue) {
       setPizzas(res.filter((i) => i.title.toLowerCase().includes(searchValue.toLowerCase())));
@@ -65,7 +64,7 @@ export const Home = () => {
         <Categories value={categorieId} onClickCategory={(i) => dispatch(changeFilter(i))} />
         <Sort value={sort} onClickSort={(i) => dispatch(changeSort(i))} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">Всі піци</h2>
       <div className="content__items">
         {isLoading
           ? [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
