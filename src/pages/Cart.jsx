@@ -40,7 +40,7 @@ export const Cart = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"></path>
             </svg>
-            Корзина
+            Кошик
           </h2>
           <div className="cart__clear">
             <svg
@@ -75,24 +75,23 @@ export const Cart = () => {
                 strokeLinejoin="round"></path>
             </svg>
 
-            <span onClick={() => dispatch(clearPizzas())}>Очистить корзину</span>
+            <span onClick={() => dispatch(clearPizzas())}>Очистити кошик</span>
           </div>
         </div>
         <div className="content__items">
-          {pizzas.map((i) => {
-            return <CartPizzas {...i} />;
+          {pizzas.map((i, id) => {
+            return <CartPizzas key={id} {...i} />;
           })}
-          ;
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Всего пицц: <b>{amount} шт.</b>{' '}
+              Всього піц: <b>{amount} шт.</b>{' '}
             </span>
             <span>
               {' '}
-              Сумма заказа: <b>{sum} ₴</b>{' '}
+              Сума замовлення: <b>{sum} ₴</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -111,10 +110,10 @@ export const Cart = () => {
                   strokeLinejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Повернутись</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Оплатити зараз</span>
             </div>
           </div>
         </div>

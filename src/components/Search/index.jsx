@@ -50,7 +50,7 @@ export const Search = () => {
         value={localSearch}
         onChange={(e) => onChangeInput(e.target.value)}
         className={styles.input}
-        placeholder="Поиск пиццы..."
+        placeholder="Пошук піци..."
         type="text"
       />
       {localSearch && (

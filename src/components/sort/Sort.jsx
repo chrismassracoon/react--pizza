@@ -12,7 +12,7 @@ const Sort = ({ value, onClickSort }) => {
     return () => document.removeEventListener('click', (e) => checkSort(e));
   }, []);
   const [openSort, setOpenSort] = useState(false);
-  const sortCategories = ['популярности', 'цене', 'алфавиту'];
+  const sortCategories = ['популярністю', 'ціною', 'алфавітом'];
   useEffect(() => {
     setOpenSort(false);
   }, [value]);
@@ -30,7 +30,7 @@ const Sort = ({ value, onClickSort }) => {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортування за:</b>
         <span onClick={() => setOpenSort(!openSort)}>{sortCategories[value]}</span>
       </div>
       {openSort && (

@@ -1,13 +1,39 @@
 import { useState } from 'react';
 import { addPizzas } from '../../redux/slices/cartSlice';
-import { useDispatch } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useEffect } from 'react';
 
 const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
+  const pizzas = useSelector((state) => state.cart.pizzas);
+  const [actualCount, setActualCount] = useState(0);
+  useEffect(() => {
+	if(pizzas){
+		let count = 0;
+		pizzas.forEach(i => i.id == id ? count = count + i.count : null);
+		setActualCount(count)
+	}
+  })
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
-  const actualPrice = Math.floor(activeSize === 0 ? price : price * 1.2);
+  let actualPrice;
+  useEffect(() => {
+    if (types.length == 1) {
+      setActiveType(types[0]);
+    }
+  }, []);
   const dispatch = useDispatch();
-  const typeNames = ['тонкое', 'традиционное'];
+  const typeNames = ['тонке', 'традиційне'];
+  switch (activeSize) {
+    case 0:
+      actualPrice = Math.floor(price);
+      break;
+    case 1:
+      actualPrice = Math.floor(price * 1.2);
+      break;
+    case 2:
+      actualPrice = Math.floor(price * 1.4);
+      break;
+  }
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
@@ -18,7 +44,7 @@ const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
             <li
               key={i}
               onClick={() => setActiveType(type)}
-              className={activeType === type ? 'active' : ''}>
+              className={activeType == type ? 'active' : ''}>
               {typeNames[type]}
             </li>
           ))}
@@ -36,7 +62,11 @@ const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{actualPrice} ₴</div>
-        <div className="button button--outline button--add">
+        <div
+          onClick={() => {
+            dispatch(addPizzas({ title, actualPrice, imageUrl, activeSize, activeType, id }));
+          }}
+          className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -48,13 +78,8 @@ const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
               fill="white"
             />
           </svg>
-          <span
-            onClick={() =>
-              dispatch(addPizzas({ title, actualPrice, imageUrl, activeSize, activeType }))
-            }>
-            Добавить
-          </span>
-          <i>0</i>
+          <span>Додати</span>
+          <i>{actualCount}</i>
         </div>
       </div>
     </div>

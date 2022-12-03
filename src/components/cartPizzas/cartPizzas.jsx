@@ -1,20 +1,32 @@
 import React from 'react';
 import { useState } from 'react';
-import { changeAmount } from '../../redux/slices/cartSlice';
-import { useDispatch } from 'react-redux/es/exports';
+import { changeAmount, deletePizza } from '../../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useEffect } from 'react';
 
-const CartPizzas = ({ title, activeType, activeSize, imageUrl, actualPrice }) => {
+const CartPizzas = ({ title, activeType, activeSize, imageUrl, actualPrice, id }) => {
   const [amount, setAmount] = useState(1);
+  const pizzas = useSelector((state) => state.cart.pizzas);
+  useEffect(() => {
+    pizzas.forEach((obj) => {
+      if (
+        obj.activeSize == activeSize &&
+        obj.id == id &&
+        obj.activeType == activeType &&
+        obj.actualPrice == actualPrice
+      ) {
+        setAmount(obj.count);
+      }
+    });
+  }, [pizzas]);
   const dispatch = useDispatch();
   const clickChangeAmount = (value) => {
     if (value === '-') {
       if (amount > 1) {
-        setAmount((state) => state - 1);
-        dispatch(changeAmount('-'));
+        dispatch(changeAmount(['-', { activeType, activeSize, imageUrl, actualPrice, id }]));
       }
     } else {
-      setAmount((state) => state + 1);
-      dispatch(changeAmount('+'));
+      dispatch(changeAmount(['+', { activeType, activeSize, imageUrl, actualPrice, id }]));
     }
   };
   return (
@@ -25,9 +37,8 @@ const CartPizzas = ({ title, activeType, activeSize, imageUrl, actualPrice }) =>
       <div className="cart__item-info">
         <h3>{title}</h3>
         <p>
-          {activeType == 1 ? 'тонкое тесто,' : 'традиционное тесто,'}{' '}
-          {activeSize === 0 ? '26' : null} {activeSize === 1 ? '30' : null}{' '}
-          {activeSize === 2 ? '40' : null} см.
+          {activeType == 0 ? 'тонке тісто,' : 'традиційне тісто,'} {activeSize === 0 ? '26' : null}{' '}
+          {activeSize === 1 ? '30' : null} {activeSize === 2 ? '40' : null} см.
         </p>
       </div>
       <div className="cart__item-count">
@@ -68,9 +79,13 @@ const CartPizzas = ({ title, activeType, activeSize, imageUrl, actualPrice }) =>
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{actualPrice} ₴</b>
+        <b>{actualPrice * amount} ₴</b>
       </div>
-      <div className="cart__item-remove">
+      <div
+        onClick={() =>
+          dispatch(deletePizza({ title, activeType, activeSize, imageUrl, actualPrice, id }))
+        }
+        className="cart__item-remove">
         <div className="button button--outline button--circle">
           <svg
             width="10"
