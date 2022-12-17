@@ -111,8 +111,8 @@ const MainCart = ({ setShow }) => {
 
             <span>Повернутись</span>
           </Link>
-          <div className="button pay-btn">
-            <span onClick={() => setShow(true)}>Оплатити зараз</span>
+          <div onClick={() => setShow(true)} className="button pay-btn">
+            <span>Оплатити зараз</span>
           </div>
         </div>
       </div>
