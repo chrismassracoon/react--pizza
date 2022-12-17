@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Search } from '../Search';
+import { reactPizzaIcon } from '../../img';
 const Header = () => {
   const sum = useSelector((state) => state.cart.sum);
   const amount = useSelector((state) => state.cart.amount);
@@ -9,7 +10,7 @@ const Header = () => {
       <div className="container">
         <div className="header__logo">
           <Link to="/" className="header__logo">
-            <img width="38" src="img/pizza-logo.svg" alt="Pizza logo" />
+            <img width="38" src={reactPizzaIcon} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
               <p>найсмачніша піца у всесвіті</p>

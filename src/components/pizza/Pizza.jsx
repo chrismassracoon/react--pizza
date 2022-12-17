@@ -7,12 +7,12 @@ const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
   const pizzas = useSelector((state) => state.cart.pizzas);
   const [actualCount, setActualCount] = useState(0);
   useEffect(() => {
-	if(pizzas){
-		let count = 0;
-		pizzas.forEach(i => i.id == id ? count = count + i.count : null);
-		setActualCount(count)
-	}
-  })
+    if (pizzas) {
+      let count = 0;
+      pizzas.forEach((i) => (i.id == id ? (count = count + i.count) : null));
+      setActualCount(count);
+    }
+  });
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   let actualPrice;
@@ -79,7 +79,7 @@ const Pizza = ({ title, price, imageUrl, sizes, types, id }) => {
             />
           </svg>
           <span>Додати</span>
-          <i>{actualCount}</i>
+          {actualCount > 0 && <i>{actualCount}</i>}
         </div>
       </div>
     </div>
